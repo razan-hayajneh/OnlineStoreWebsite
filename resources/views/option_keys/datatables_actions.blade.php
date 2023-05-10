@@ -2,9 +2,6 @@
 
 
 <div class='btn-group'>
-    <a href="{{ route('optionKeys.show', $id) }}" class='btn btn-default btn-xs'>
-        <i class="fa fa-eye"></i>
-    </a>
     <a href="{{ route('optionKeys.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a>

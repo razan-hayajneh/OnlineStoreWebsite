@@ -7,12 +7,6 @@
                 <div class="col-sm-6">
                     @lang('models/orders.plural')
                 </div>
-                {{-- <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('orders.create') }}">
-                         @lang('crud.add_new')
-                    </a>
-                </div> --}}
             </div>
         </div>
     </section>

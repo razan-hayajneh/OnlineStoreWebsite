@@ -49,7 +49,6 @@ Route::any('/suggested-products', [ProductAPIController::class, 'suggest']);
 Route::resource('options', OptionAPIController::class);
 Route::resource('option_keys', OptionKeyAPIController::class);
 Route::resource('orders', OrderAPIController::class);
-Route::resource('product_images', ProductImagesAPIController::class);
 Route::resource('categories', CategoryAPIController::class);
 Route::resource('cities', CityAPIController::class);
 Route::resource('coupons', CouponAPIController::class);

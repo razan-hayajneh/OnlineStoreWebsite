@@ -1,8 +1,5 @@
 {!! Form::open(['route' => ['coupons.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('coupons.show', $id) }}" class='btn btn-default btn-xs'>
-        <i class="fa fa-eye"></i>
-    </a>
     <a href="{{ route('coupons.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a>

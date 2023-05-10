@@ -2,7 +2,7 @@
 <div class="col-sm-3">
     {{-- {!! Form::label('user_id', __('models/orders.fields.user_id') . ':') !!} --}}
     <div>
-        <img src="{{ dashboard_url($order->user?->avatar) }}" width="200" style="border-radius: 1000px;">
+        <img src="{{ dashboard_url($order->user?->profile_path_path) }}" width="200" style="border-radius: 1000px;">
         <div class="inline"><i class="nav-icon fa fa-user m-2"></i><span>{{ $order->user?->name }}</span></div>
         <div class="inline-flex"><i class="nav-icon fa fa-envelope m-2"></i><span></span>{{ $order->user?->email }}</span>
         </div>
@@ -29,7 +29,7 @@
                     <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle border">
                         <td><button class="btn btn-default btn-xs"><span
                                     class="glyphicon glyphicon-eye-open"></span></button></td>
-                        <td>{{ __('models/clients.fields.address') }}</td>
+                        <td>{{ __('models/clients.fields.details') }}</td>
                     </tr>
                     <tr class="hiddenRow">
                         <td colspan="12">
@@ -40,6 +40,12 @@
                                             <td>
                                                 {!! Form::label('address', __('models/clients.fields.address') . ':') !!}
                                                 <p>{{ $order ? $order->address: '' }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                {!! Form::label('notes', __('models/clients.fields.notes') . ':') !!}
+                                                <p>{{ $order ? $order->notes: '' }}</p>
                                             </td>
                                         </tr>
                                     </thead>
@@ -99,12 +105,6 @@
     </div>
 
     <table class="table">
-
-        {{-- <button type="button" onclick="getCategories()" data-toggle="modal" data-target="#demoModal" class="group"
-            style=" height:40px; border-radius: 8px; float:right;margin-block:5px;color:#fff">
-            <i class="fa fa-plus mx-2"></i>
-            {{ __('awt.Add New') }}
-        </button> --}}
         <thead>
 
             <tr style="background-color: rgb(235, 236, 240)">
@@ -123,14 +123,12 @@
             @foreach ($order->products as $ob)
                 <tr>
                     <td class="border">
-                        @if (count($ob->images))
-                            <img src="{{ $ob->images ? dashboard_url('products/' . $ob->images[0]?->image) : '' }}"
-                                height="60" width="60" style=" border-radius: 10px;">
-                        @endif
+                            <img src="{{ dashboard_url($ob->product?->image_path) }}"
+                                height="60" width="60" style=" border-radius: 1000%;">
                     </td>
-                    <td class="border">{{ $ob->name }}</td>
+                    <td class="border">{{ $ob->product?->name }}</td>
                     <td class="border">
-                        {{ $ob->pivot->product_option_key_id ? App\Models\ProductOptionKey::where('id', $ob->pivot->product_option_key_id)->first()->optionkey['key'] : '' }}
+                        {{ $ob->optionKey->key }}
 
                     </td>
                     {{-- $ob->pivot->product_option_key_id --}}
@@ -142,7 +140,7 @@
                             onchange="editQuantity({{ $order->id }},{{ $ob->pivot->id }})"
                             value="{{ $ob->pivot->quantity }}" id="quantity[{{ $ob->pivot->id }}]"
                             name="quantity[{{ $ob->pivot->id }}]" min="1"
-                            max="{{ $ob->pivot->quantity + ($ob->pivot->product_option_key_id ? App\Models\ProductOptionKey::where('id', $ob->pivot->product_option_key_id)->first()['quantity'] : $ob->quantity) }}">
+                            max="{{ $ob->pivot->quantity + $ob->optionKey->quantity }}">
                         <a href=""><i id="quantitySubmit[{{ $ob->pivot->id }}]" style="display: none"
                                 class="fa fa-check"></i> </a>
                         <i onclick="editQuantityInput({{ $order->id }},{{ $ob->pivot->id }})"

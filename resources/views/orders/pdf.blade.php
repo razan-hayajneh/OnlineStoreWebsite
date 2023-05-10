@@ -73,7 +73,7 @@
                         <tr>
 
                             <td style="text-align: center">{{ $ob->user?->name }}</td>
-                            <td style="text-align: center">{{ $ob->orderStatus?->name }}</td>
+                            <td style="text-align: center">{{ $ob->order_status }}</td>
                             <td style="text-align: center">{{ $ob->total_price }}</td>
                             <td style="text-align: center">
                                 {{ $ob->coupon?->is_ratio ? $ob->total_price * $ob->coupon?->value : $ob->coupon?->value }}

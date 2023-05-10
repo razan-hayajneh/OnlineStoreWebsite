@@ -1,4 +1,4 @@
-{{-- {!! Form::open(['route' => ['orders.destroy', $id], 'method' => 'delete']) !!} --}}
+{!! Form::open(['route' => ['order.cancel', ['order_id'=>$id]], 'method' => 'post']) !!}
 <div class='btn-group'>
     <a href="{{ route('orders.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-eye"></i>
@@ -11,13 +11,13 @@
     {{-- <a href="{{ route('orders.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a> --}}
-    {{-- {!! Form::button('<i class="fa fa-trash"></i>', [
+    {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs',
         'onclick' => 'return confirm("'.__('crud.are_you_sure').'")'
-    ]) !!} --}}
+    ]) !!}
 </div>
-{{-- {!! Form::close() !!} --}}
+{!! Form::close() !!}
 <!-- Modal Example Start-->
 {!! Form::open(['route' => 'order.editStatus']) !!}
 <div class="modal fade" id="editStutus" tabindex="-1" role="dialog" aria-labelledby="editStutusLabel"

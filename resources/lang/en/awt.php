@@ -70,6 +70,7 @@ return [
 
 
     // coupons
+    'desc' => 'Description',
     'english_desc' => 'English Description',
     'arabic_desc' => 'Arabic Description',
 

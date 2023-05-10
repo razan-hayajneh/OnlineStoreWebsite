@@ -18,12 +18,15 @@ class Order extends Model
     protected $dates = ['deleted_at'];
 
     public $fillable = [
-        'user_id',
+        'client_id',
         'total_price',
         'coupon_id',
         'final_price',
         'tax',
-        'order_status'
+        'order_status',
+        'canceled',
+        'address',
+        'notes'
     ];
 
     protected $casts = [
@@ -52,6 +55,6 @@ class Order extends Model
     }
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_order', 'order_id', 'product_option_key_id')->withPivot('id', 'product_option_key_id', 'price', 'purchase_price', 'quantity');
+        return $this->belongsToMany(ProductOptionKey::class, 'product_order', 'order_id', 'product_option_key_id')->withPivot('id', 'product_option_key_id', 'price', 'purchase_price', 'quantity');
     }
 }

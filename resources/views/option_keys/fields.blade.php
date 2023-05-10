@@ -1,12 +1,7 @@
 <!-- Key Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('key_en', __('awt.english_key').':') !!}
-    {!! Form::text('key_en', null, ['class' => 'form-control']) !!}
-</div>
-
-<div class="form-group col-sm-6">
-    {!! Form::label('key_ar', __('awt.arabic_key').':') !!}
-    {!! Form::text('key_ar', null, ['class' => 'form-control']) !!}
+    {!! Form::label('key', __('awt.key').':') !!}
+    {!! Form::text('key', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Option Id Field -->

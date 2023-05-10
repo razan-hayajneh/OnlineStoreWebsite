@@ -48,49 +48,11 @@
         <table style="border:none">
             <thead>
                 <tr style="border:none">
-                    <!---- Id Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.city_id') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->city?->name : '' }}</span>
-                    </td>
 
-                    <!-- Country Id Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.country_id') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->country?->name : '' }}</span>
-                    </td>
-                    <!-- Street Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.street') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->street : '' }}</span>
-                    </td>
-                    <!-- Neighborhood Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.neighborhood') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->neighborhood : '' }}</span>
-                    </td>
-                </tr>
-                <tr style="border:none">
-                    <!-- Residence Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.residence') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->residence : '' }}</span>
-                    </td>
-
-                    <!-- Floor Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.floor') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->floor : '' }}</span>
-                    </td>
-                    <!-- House Field -->
-                    <td style="border:none">
-                        <h1>{{ __('models/addresses.fields.house') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->house : '' }}</span>
-                    </td>
                     <!-- Address Field -->
                     <td style="border:none">
                         <h1>{{ __('models/addresses.fields.address') . ':  ' }}</h1>
-                        <span>{{ $order ? $order->address?->address : '' }}</span>
+                        <span>{{ $order ? $order->address : '' }}</span>
                     </td>
 
                 </tr>
@@ -151,8 +113,8 @@
                     @foreach ($order->products as $ob)
                         <tr>
                             <td style="text-align: center"><img
-                                    src="{{ $ob->images ? dashboard_url($ob->images[0]->image) : '' }}" width="70"
-                                    style=" border-radius: 10px;"></td>
+                                    src="{{ dashboard_url($ob->image_path)  }}" width="70"
+                                    style=" border-radius: 1000%;"></td>
                             <td style="text-align: center">{{ $ob->name }}</td>
                             <td style="text-align: center">
                                 {{ $ob->pivot->product_option_key_id ? App\Models\ProductOptionKey::where('id', $ob->pivot->product_option_key_id)->first()->optionkey['key'] : '' }}

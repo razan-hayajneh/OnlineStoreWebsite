@@ -6,9 +6,6 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class OptionKey
@@ -21,16 +18,13 @@ use Spatie\Translatable\HasTranslations;
  */
 class OptionKey extends Model
 {
-    use TransformableTrait;
     use SoftDeletes, CascadeSoftDeletes;
-    use HasTranslations;
     use HasFactory;
 
     public $table = 'option_keys';
 
 
     protected $dates = ['deleted_at'];
-    public $translatable = ['key'];
 
 
 
@@ -56,8 +50,7 @@ class OptionKey extends Model
      * @var array
      */
     public static $rules = [
-        'key_en' => 'required|unique:option_keys,id',
-        'key_ar' => 'required|unique:option_keys,id',
+        'key' => 'required|unique:option_keys,id',
         'option_id' => 'required|exists:options,id,deleted_at,NULL'
     ];
 

@@ -261,7 +261,7 @@
                             `<option value="" hidden selected>{{ app()->getLocale() == 'ar' ? 'اختر ' : 'select ' }}</option>`;
                         $.each(res.data, function(index, value) {
                             html +=
-                                `<option value="${value.id}" ${option_id == value.id ? 'selected':'' }>${value.key.ar}</option>`;
+                                `<option value="${value.id}" ${option_id == value.id ? 'selected':'' }>${value.key}</option>`;
                         });
                         $('#optionKeyIdEdit').append(html);
                     }

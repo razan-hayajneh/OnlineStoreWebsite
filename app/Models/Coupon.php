@@ -6,9 +6,7 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Coupon
@@ -25,13 +23,9 @@ class Coupon extends Model
 {
     use TransformableTrait;
     use SoftDeletes, CascadeSoftDeletes;
-    use HasTranslations;
     use HasFactory;
 
     public $table = 'coupons';
-    public $translatable = ['description'];
-
-
 
     protected $dates = ['deleted_at'];
 
@@ -39,7 +33,6 @@ class Coupon extends Model
 
     public $fillable = [
         'code',
-        'description',
         'is_ratio',
         'value',
         'expiration_date'

@@ -5,48 +5,39 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                   @lang('models/optionKeys.plural')
+                    @lang('models/optionKeys.plural')
                 </div>
-                {{-- <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('optionKeys.create',['id' => $option['id']]) }}">
-                         @lang('crud.add_new')
-                    </a>
-                </div> --}}
             </div>
         </div>
     </section>
 
-
     <div class="content px-3">
-        <button   class="btn btn-success btn-round-2">
-            {{ 'Option : ' }}{{  $option['name'] }}
-            </button>
-
+        <button class="btn btn-success btn-round-2">
+            {{ 'Option : ' }}{{ $option['name'] }}
+        </button>
 
         @include('flash::message')
         @if (\Session::has('message'))
-        <div class="alert alert-danger">
-            <ul>
-                <li>{!! \Session::get('message') !!}</li>
-            </ul>
-        </div>
-    @endif
+            <div class="alert alert-danger">
+                <ul>
+                    <li>{!! \Session::get('message') !!}</li>
+                </ul>
+            </div>
+        @endif
 
         <div class="clearfix"></div>
 
         <div class="card">
             <div class="card-body p-8">
-                <button    class="group"style=" height:40px; border-radius: 8px;">
-                    <a href="{{ route('optionKeys.create',['id' => $option['id']]) }}" style="color:#fff" >
-                    <i class="fa fa-plus"></i>
-                    @lang('crud.add_new')
+                <button class="group"style=" height:40px; border-radius: 8px;">
+                    <a href="{{ route('optionKeys.create', ['id' => $option['id']]) }}" style="color:#fff">
+                        <i class="fa fa-plus"></i>
+                        @lang('crud.add_new')
                     </a>
                 </button>
 
-
                 <button type="button" class=" group" style="width: 80px;height:40px">
-                    <a href="{{ route('optionKeys.exportPdf',$option['id']) }}" style="color:#fff" target="__blank">
+                    <a href="{{ route('optionKeys.exportPdf', $option['id']) }}" style="color:#fff" target="__blank">
                         <div style="display: inline-block;">
                             <i class="fas fa-file-pdf" style="color:#fff"></i>
                             <span style="font-size: 12px">{{ __('awt.pdf') }}</span>
@@ -55,7 +46,7 @@
                 </button>
                 </button>
                 <button type="button" class=" group" style="width: 80px;height:40px">
-                    <a href="{{ route('optionKeys.exportExcel',$option['id']) }}" style="color:#fff">
+                    <a href="{{ route('optionKeys.exportExcel', $option['id']) }}" style="color:#fff">
                         <div style="display: inline-block;">
                             <i class="fas fa-file-excel" style="color:#fff"></i>
                             <span style="font-size: 12px">{{ __('awt.excel') }}</span>
@@ -72,7 +63,4 @@
             </div>
         </div>
     </div>
-
 @endsection
-
-

@@ -43,7 +43,7 @@
                             {!! Form::select(
                                 'option_key_id',
                                 isset($optionKeys) ? $optionKeys : [],
-                                isset($order) ? $order->address->city_id : null,
+                                isset($product) ? $order->address->city_id : null,
                                 [
                                     'class' => 'form-control custom-select ',
                                     'id' => 'optionKeyId',

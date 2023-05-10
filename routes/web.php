@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\{CityController, AddressController, AjaxController, CategoryController, ClientController, CouponController, ProductController, ProductImagesController, OptionController, OptionKeyController, OrderController, UserController};
-use Illuminate\Support\Facades\{Auth,Route};
+use App\Http\Controllers\{CityController, AddressController, AjaxController, CategoryController, ClientController, CouponController, ProductController, OptionController, OptionKeyController, OrderController, UserController};
+use Illuminate\Support\Facades\{Auth, Route};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,7 +53,7 @@ Route::middleware([
     Route::get('order/Export-Pdf', [OrderController::class, 'exportOrderPdf'])->name('order.exportOrderPdf');
     Route::post('orders/addProduct',  [OrderController::class, 'addProduct'])->name('order.addProduct');
     Route::post('orders/editStatus',  [OrderController::class, 'editStatus'])->name('order.editStatus');
-    Route::resource('productImages', ProductImagesController::class);
+    Route::post('order/cancel',  [OrderController::class, 'cancelOrder'])->name('order.cancel');
     Route::resource('coupons', CouponController::class);
     Route::resource('categories', CategoryController::class);
     Route::get('changeStatus', [CategoryController::class, 'changeStatus'])->name('category.changeStatus');
@@ -63,9 +63,6 @@ Route::middleware([
     Route::get('exportOptionPdf', [OptionController::class, 'exportPdf'])->name('options.exportPdf');
     Route::get('exportOpKeyExcel/{id}', [OptionKeyController::class, 'exportExcel'])->name('optionKeys.exportExcel');
     Route::get('exportOpKeyPdf/{id}', [OptionKeyController::class, 'exportPdf'])->name('optionKeys.exportPdf');
-    Route::get('exportCouponExcel', [CouponController::class, 'exportExcel'])->name('coupons.exportExcel');
-    Route::get('exportCouponPdf', [CouponController::class, 'exportPdf'])->name('coupons.exportPdf');
-    Route::resource('addresses', AddressController::class);
     Route::resource('clients', ClientController::class)->middleware('auth');
     Route::get('client/ExportExcel', [ClientController::class, 'exportExcel'])->name('client.exportExcel');
     Route::get('client/ExportPdf', [ClientController::class, 'exportPdf'])->name('client.exportPdf');

@@ -18,6 +18,8 @@ return array(
         'deactivate' => 'Deactivate',
         'avatar' => 'Avatar',
         'city_id' => 'City',
+        'notes' => 'Notes',
+        'details' => 'Details',
         'password' => 'Password',
         'password_confirmation' => 'Password Confirmation',
         'created_at' => 'Created At',

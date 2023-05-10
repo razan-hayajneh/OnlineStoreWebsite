@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\ProductImagesResource;
 use App\Models\ProductOptionKey;
 use App\Models\Option;
 use App\Models\OptionKey;
@@ -35,7 +34,6 @@ class ProductResource extends JsonResource
             'category_id' => $this->category_id,
             'quantity' => $this->quantity,
             'selling_price' => $this->discount != 0 ? ($this->discount_type == 1 ? strval((1 - $this->discount / 100) * $this->price) : strval($this->price - $this->discount)) : null,
-            'images' => $this->ProductImages ? ProductImagesResource::collection($this->ProductImages) : [],
             'options' => $this->optionKeys ? OptionResource::collection($options) : [],
 
         ];

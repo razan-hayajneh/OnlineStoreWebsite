@@ -27,7 +27,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('optionKeys.index') }}" class="btn btn-default">
+                <a href="{{ route('optionKeys.index',['id'=>$optionKey->option_id]) }}" class="btn btn-default">
                     @lang('crud.cancel')
                  </a>
             </div>
