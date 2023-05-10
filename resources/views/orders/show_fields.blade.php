@@ -2,7 +2,7 @@
 <div class="col-sm-3">
     {{-- {!! Form::label('user_id', __('models/orders.fields.user_id') . ':') !!} --}}
     <div>
-        <img src="{{ dashboard_url($order->user?->profile_path_path) }}" width="200" style="border-radius: 1000px;">
+        <img src="{{ dashboard_url($order->user?->profile_photo_path) }}" width="200" style="border-radius: 1000px;">
         <div class="inline"><i class="nav-icon fa fa-user m-2"></i><span>{{ $order->user?->name }}</span></div>
         <div class="inline-flex"><i class="nav-icon fa fa-envelope m-2"></i><span></span>{{ $order->user?->email }}</span>
         </div>

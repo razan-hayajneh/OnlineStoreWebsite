@@ -56,7 +56,6 @@ class OptionKeyController extends AppBaseController
      */
     public function create(Request $request)
     {
-        // $option_id = $request->input('id');
         $option = Option::find($request->input('id'));
         return view('option_keys.create', compact('option'));
     }
@@ -71,10 +70,6 @@ class OptionKeyController extends AppBaseController
     public function store(CreateOptionKeyRequest $request)
     {
         $input = $request->all();
-        $key = ['ar' => $request['key_ar'], 'en' => $request['key_en']];
-
-
-        $input = ['key' => $key, 'option_id' => $request['option_id']  ];
         $optionKey = $this->optionKeyRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/optionKeys.singular')]));
@@ -93,10 +88,6 @@ class OptionKeyController extends AppBaseController
     {
         $optionKey = $this->optionKeyRepository->find($id);
         $option = Option::find($optionKey->option_id);
-
-
-        $optionKey->key_ar = $optionKey->getTranslation('key', 'ar') ?? '';
-        $optionKey->key_en = $optionKey->getTranslation('key', 'en') ?? '';
         if (empty($optionKey)) {
             Flash::error(__('messages.not_found', ['model' => __('models/optionKeys.singular')]));
 
@@ -123,10 +114,6 @@ class OptionKeyController extends AppBaseController
 
             return redirect(route('optionKeys.index'));
         }
-
-        $optionKey->key_ar = $optionKey->getTranslation('key', 'ar')??'';
-        $optionKey->key_en = $optionKey->getTranslation('key', 'en')??'';
-
         return view('option_keys.edit', compact('optionKey', 'option'));
         // ->with('optionKey', $optionKey);
     }
@@ -186,10 +173,6 @@ class OptionKeyController extends AppBaseController
         $optionKeys = OptionKey::where('option_id', $id)->get();
         $option = Option::find($id);
         $lang = app()->getLocale();
-        foreach ($optionKeys  as $value) {
-            $key = $value->toArray();
-            $value->key = $lang == 'ar' ? $key['key']['ar'] :  $key['key']['en'];
-        }
         if (count($optionKeys) == 0) {
             $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
             return redirect()->back()->with(['message'=>$message] );
@@ -203,10 +186,6 @@ class OptionKeyController extends AppBaseController
         $option = Option::find($id);
 
         $lang = app()->getLocale();
-        foreach ($optionKeys  as $value) {
-            $key = $value->toArray();
-            $value->key = $lang == 'ar' ? $key['key']['ar'] :  $key['key']['en'];
-        }
         if (count($optionKeys) == 0) {
             $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
             return redirect()->back()->with(['message'=>$message] );
