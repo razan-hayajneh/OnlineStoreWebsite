@@ -22,7 +22,7 @@ class OrderDataTable extends DataTable
 
         return $dataTable->addColumn('action', 'orders.datatables_actions')
             ->addColumn('coupon_code', function ($query) {
-                return $query->coupon?->code ?? '';
+                return $query->coupon?($query->coupon?->is_ratio?$query->coupon?->value.'%': $query->coupon?->value.'JD'):'<button  class="btn btn-warning btn-round-2">without coupon</button>';
             })->addColumn('user_name', function ($query) {
                 return $query->user?->name;
             })->addColumn('order_status', function ($query) {
@@ -41,7 +41,7 @@ class OrderDataTable extends DataTable
             ' . $query->order_status . '
           </button>')));
             })
-            ->rawColumns(['user_name','status','order_status', 'action', 'id']);
+            ->rawColumns(['user_name','coupon_code','status','order_status', 'action', 'id']);
     }
 
     /**
@@ -52,7 +52,7 @@ class OrderDataTable extends DataTable
      */
     public function query(Order $model)
     {
-        return $model->query()->where('checkout',1)->with(['coupon','user'])->latest();
+        return $model->query()->whereCheckout(1)->whereCanceled(0)->with(['coupon','user'])->latest();
     }
 
     /**

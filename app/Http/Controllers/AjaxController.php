@@ -32,6 +32,13 @@ class AjaxController extends Controller
         // if ($request->ajax()) {
         $order = Order::where('id', $request['order_id'])->first();
         $product = $order->products()->wherePivot('id', $request['id'])->first();
+        if($product->pivot['quantity']<$request['quantity']){
+            $productOptionKey=ProductOptionKey::find($product->id);
+            $productOptionKey->update(['quantity'=>$productOptionKey['quantity']-($request['quantity']-$product->pivot['quantity'])]);
+        }else{
+            $productOptionKey=ProductOptionKey::find($product->id);
+            $productOptionKey->update(['quantity'=>$productOptionKey['quantity']+($product->pivot['quantity']-$request['quantity'])]);
+        }
         $order->products()->wherePivot('id', $request['id'])->updateExistingPivot($product->id, ['quantity' => $request['quantity']]);
         $total_price = $order->products()->sum(\DB::raw('product_order.purchase_price*product_order.quantity'));
         $tax = ($order->coupon != null ? ($order->coupon->is_ratio ? (1 - $order->coupon->value) * $total_price : $total_price - $order->coupon->value) : $total_price) * 0.1;

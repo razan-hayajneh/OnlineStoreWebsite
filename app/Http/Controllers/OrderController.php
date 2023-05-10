@@ -23,13 +23,13 @@ class OrderController extends AppBaseController
     }
     public function index(OrderDataTable $orderDataTable)
     {
-                $orderStatuses = array_combine(array_column(OrderStatus::cases(), 'value'), array_column(OrderStatus::cases(), 'name'));
+        $orderStatuses = array_combine(array_column(OrderStatus::cases(), 'value'), array_column(OrderStatus::cases(), 'name'));
 
-        return $orderDataTable->render('orders.index',compact('orderStatuses'));
+        return $orderDataTable->render('orders.index', compact('orderStatuses'));
     }
     public function exportExcel()
     {
-        $orders = Order::all();
+        $orders = Order::whereCheckout(1)->whereCanceled(0)->get();
         $lang = app()->getLocale();
         if (count($orders) == 0) {
             $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
@@ -39,7 +39,7 @@ class OrderController extends AppBaseController
     }
     public function exportPdf()
     {
-        $orders = Order::all();
+        $orders = Order::whereCheckout(1)->whereCanceled(0)->get();
         $lang = app()->getLocale();
         if (count($orders) == 0) {
             $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
@@ -81,7 +81,7 @@ class OrderController extends AppBaseController
         }
         $orderStatuses = array_combine(array_column(OrderStatus::cases(), 'value'), array_column(OrderStatus::cases(), 'name'));
 
-        return view('orders.show')->with(['order'=> $order,'order_statuses'=>$orderStatuses]);
+        return view('orders.show')->with(['order' => $order, 'order_statuses' => $orderStatuses]);
     }
     public function edit($id)
     {
@@ -141,9 +141,20 @@ class OrderController extends AppBaseController
             'order_status' => request('order_status')
         ]);
         Flash::success(__('awt.Updated Order Status Successfully'));
-        if (request('type') == 'index')
+        return redirect(route('orders.index'));
+    }
+    public function cancelOrder()
+    {
+        $order = Order::where('id', request('order_id'))->first();
+        if (empty($order)) {
+            Flash::error(__('messages.not_found', ['model' => __('models/orders.singular')]));
             return redirect(route('orders.index'));
-        return redirect(route('orders.show', request('order_id')));
+        }
+        $order->update([
+            'cancel' => 1
+        ]);
+        Flash::success(__('awt.Updated Order Status Successfully'));
+        return redirect(route('orders.index'));
     }
     public function destroyProduct()
     {

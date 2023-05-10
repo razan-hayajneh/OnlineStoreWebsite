@@ -140,7 +140,7 @@
                             onchange="editQuantity({{ $order->id }},{{ $ob->pivot->id }})"
                             value="{{ $ob->pivot->quantity }}" id="quantity[{{ $ob->pivot->id }}]"
                             name="quantity[{{ $ob->pivot->id }}]" min="1"
-                            max="{{ $ob->pivot->quantity + $ob->optionKey->quantity }}">
+                            max="{{ $ob->pivot->quantity + $ob->quantity }}">
                         <a href=""><i id="quantitySubmit[{{ $ob->pivot->id }}]" style="display: none"
                                 class="fa fa-check"></i> </a>
                         <i onclick="editQuantityInput({{ $order->id }},{{ $ob->pivot->id }})"

@@ -19,8 +19,8 @@ class CouponDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('description', function ($query) {
-            return $query->description;
+        return $dataTable->addColumn('value', function ($query) {
+            return $query->is_ratio ? $query->value . '%' : $query->value . 'JD';
         })->addColumn('action', 'coupons.datatables_actions');
     }
 
@@ -77,9 +77,9 @@ class CouponDataTable extends DataTable
                     //    'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
                     // ],
                 ],
-                 'language' => [
-                   'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
-                 ],
+                'language' => [
+                    'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
+                ],
             ]);
     }
 
@@ -92,8 +92,6 @@ class CouponDataTable extends DataTable
     {
         return [
             'code' => new Column(['title' => __('models/coupons.fields.code'), 'data' => 'code']),
-            'description' => new Column(['title' => __('models/coupons.fields.description'), 'data' => 'description']),
-            'is_ratio' => new Column(['title' => __('models/coupons.fields.is_ratio'), 'data' => 'is_ratio']),
             'value' => new Column(['title' => __('models/coupons.fields.value'), 'data' => 'value']),
             'expiration_date' => new Column(['title' => __('models/coupons.fields.expiration_date'), 'data' => 'expiration_date'])
         ];
