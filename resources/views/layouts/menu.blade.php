@@ -38,31 +38,9 @@
     </a>
 </li>
 
-{{--
-<li class="nav-item">
-    <a href="{{ route('sliders.index') }}"
-       class="nav-link {{ Request::is('sliders*') ? 'active' : '' }}">
-       <i class="nav-icon fa fa-film"></i><p>@lang('models/sliders.plural')</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('contactuses.index') }}"
-       class="nav-link {{ Request::is('contactuses*') ? 'active' : '' }}">
-       <i class="nav-icon fa fa-address-card"></i><p>@lang('models/contactuses.plural')</p>
-    </a>
-</li>
-
-<li class="nav-item">
-    <a href="{{ route('contacts.index') }}"
-       class="nav-link {{ Request::is('contacts*') ? 'active' : '' }}">
-       <i class="nav-icon fa fa-phone-volume"></i> <p>@lang('models/contacts.plural')</p>
-    </a>
-</li>
-
 <li class="nav-item">
     <a href="{{ route('socialMedia.index') }}"
        class="nav-link {{ Request::is('socialMedia*') ? 'active' : '' }}">
          <i class="nav-icon fa fa-globe"></i> <p>@lang('models/socialMedia.plural')</p>
     </a>
-</li> --}}
+</li>

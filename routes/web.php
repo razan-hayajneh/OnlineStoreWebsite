@@ -66,8 +66,5 @@ Route::middleware([
     Route::resource('clients', ClientController::class)->middleware('auth');
     Route::get('client/ExportExcel', [ClientController::class, 'exportExcel'])->name('client.exportExcel');
     Route::get('client/ExportPdf', [ClientController::class, 'exportPdf'])->name('client.exportPdf');
-    Route::resource('sliders', App\Http\Controllers\SliderController::class);
-    Route::resource('contactuses', App\Http\Controllers\ContactUsController::class);
-    Route::resource('contacts', App\Http\Controllers\ContactController::class);
-    Route::resource('socialMedia', App\Http\Controllers\SocialMediaController::class);
+   Route::resource('socialMedia', App\Http\Controllers\SocialMediaController::class);
 });
