@@ -31,8 +31,8 @@ class HomeAPIController extends AppBaseController
         $categories = Category::where('active', 1)->get();
         return $this->sendResponse(
             [
-                'squareCategories' => CategoryResource::collection($categories),
-                'suggestedForYou' => ProductResource::collection($suggestedForYou)
+                'square_categories' => CategoryResource::collection($categories),
+                'suggested_for_you' => ProductResource::collection($suggestedForYou)
             ],
             __('messages.retrieved', ['model' => __('awt.data')])
         );
