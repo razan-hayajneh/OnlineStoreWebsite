@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ProductRepository
@@ -23,7 +24,8 @@ class ProductRepository extends BaseRepository
         'category_id',
         'quantity',
         'discount',
-        'discount_type'
+        'discount_type',
+        'image_path'
     ];
 
     /**
@@ -34,6 +36,12 @@ class ProductRepository extends BaseRepository
     public function getFieldsSearchable()
     {
         return $this->fieldSearchable;
+    }
+    public function getProductsWhereActiveCategory()
+    {
+        return Product::whereHas('category', function ($query) {
+            $query->where('active', 1);
+        })->orderBy(DB::raw('RAND()'))->take(10)->get();
     }
 
     /**
