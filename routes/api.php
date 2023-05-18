@@ -27,30 +27,27 @@ Route::group(['middleware' => ['auth-check'], 'namespace' => 'Api\Client'], func
     Route::any('sign-in', 'AuthController@Login');
     Route::any('user/sign-up', 'AuthController@UserRegister');
     Route::any('send-active-code', 'AuthController@sendActiveCode');
-    Route::any('resend_code', 'AuthController@sendActiveCode');
     Route::any('check-active-code', 'AuthController@checkActiveCode');
     Route::any('logout', 'AuthController@Logout');
-    Route::any('forget-password', 'AuthController@ForgetPasswordCode');
 
     Route::group(['middleware' => ['jwt.verify', 'check-user-active']], function () {
         //        # User profile
         Route::any('profile', 'AuthController@ShowProfile');
         Route::any('profile/update', 'AuthController@UpdateProfile');
-        Route::any('profile/replacePhone', 'AuthController@Activation');
         Route::any('change-password', 'AuthController@UpdatePassword');
+        Route::any('products', [ProductAPIController::class, 'index']);
+        Route::any('/home-data', [HomeAPIController::class, 'index']);
+        Route::any('/suggested-products', [ProductAPIController::class, 'suggest']);
+        Route::resource('options', OptionAPIController::class);
+        Route::resource('option_keys', OptionKeyAPIController::class);
+        Route::resource('orders', OrderAPIController::class);
+        Route::resource('categories', CategoryAPIController::class);
+        Route::resource('coupons', CouponAPIController::class);
+        Route::resource('product_option_keys', ProductOptionKeyAPIController::class);
+        Route::resource('social_media', SocialMediaAPIController::class);
+        Route::resource('ratings', RatingAPIController::class);
     });
 });
-Route::any('products', [ProductAPIController::class,'index']);
-Route::any('/home-data', [HomeAPIController::class, 'index']);
-Route::any('/suggested-products', [ProductAPIController::class, 'suggest']);
-Route::resource('options', OptionAPIController::class);
-Route::resource('option_keys', OptionKeyAPIController::class);
-Route::resource('orders', OrderAPIController::class);
-Route::resource('categories', CategoryAPIController::class);
-Route::resource('coupons', CouponAPIController::class);
-Route::resource('product_option_keys', ProductOptionKeyAPIController::class);
-Route::resource('social_media', SocialMediaAPIController::class);
-Route::resource('ratings', RatingAPIController::class);
 
 
 Route::resource('order_timelines', App\Http\Controllers\API\OrderTimelineAPIController::class);

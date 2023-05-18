@@ -16,6 +16,7 @@ class AuthCheck
         if($token){
             $user = JWTAuth::toUser($token);
         }
+        
         return $next($request);
     }
 }
