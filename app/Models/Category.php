@@ -42,16 +42,10 @@ class Category extends Model
      * @var array
      */
     protected $casts = [
-        // 'name' => 'string',
-        // 'parent_id' => 'integer',
-        // 'active' => 'boolean'
+        'name' => 'string',
+        'image_path' => 'string',
+        'active' => 'boolean'
     ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
     public static $rules = [
         'name' => 'required|unique:categories,name',
         'image_path' => 'required|mimes:png,svg,jpg,jpeg',
