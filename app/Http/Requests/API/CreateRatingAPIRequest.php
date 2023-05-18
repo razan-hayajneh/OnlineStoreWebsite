@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
-use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Slider;
+use App\Models\Rating;
+use InfyOm\Generator\Request\APIRequest;
 
-class CreateSliderRequest extends FormRequest
+class CreateRatingAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class CreateSliderRequest extends FormRequest
      */
     public function rules()
     {
-        return Slider::$rules;
+        return Rating::$rules;
     }
 }

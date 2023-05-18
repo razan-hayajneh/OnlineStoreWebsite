@@ -17,7 +17,6 @@ use Response;
 
 class OptionController extends AppBaseController
 {
-    /** @var OptionRepository $optionRepository*/
     private $optionRepository;
 
     public function __construct(OptionRepository $optionRepo)
@@ -25,42 +24,19 @@ class OptionController extends AppBaseController
         $this->optionRepository = $optionRepo;
     }
 
-    /**
-     * Display a listing of the Option.
-     *
-     * @param OptionDataTable $optionDataTable
-     *
-     * @return Response
-     */
     public function index(OptionDataTable $optionDataTable)
     {
         return $optionDataTable->render('options.index');
     }
 
-    /**
-     * Show the form for creating a new Option.
-     *
-     * @return Response
-     */
     public function create()
     {
         return view('options.create');
     }
 
-    /**
-     * Store a newly created Option in storage.
-     *
-     * @param CreateOptionRequest $request
-     *
-     * @return Response
-     */
     public function store(CreateOptionRequest $request)
     {
-        // $input = $request->all();
-        $name = ['ar' => $request['name_ar'], 'en' => $request['name_en']];
-
-
-        $input = ['name' => $name];
+        $input = $request->all();
         $option = $this->optionRepository->create($input);
 
         Flash::success(__('messages.saved', ['model' => __('models/options.singular')]));
@@ -68,18 +44,9 @@ class OptionController extends AppBaseController
         return redirect(route('options.index'));
     }
 
-    /**
-     * Display the specified Option.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
     public function show($id)
     {
         $option = $this->optionRepository->find($id);
-        $option->name_ar = $option->getTranslation('name', 'ar') ?? '';
-        $option->name_en = $option->getTranslation('name', 'en') ?? '';
 
         if (empty($option)) {
             Flash::error(__('messages.not_found', ['model' => __('models/options.singular')]));
@@ -90,13 +57,6 @@ class OptionController extends AppBaseController
         return view('options.show')->with('option', $option);
     }
 
-    /**
-     * Show the form for editing the specified Option.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
     public function edit($id)
     {
         $option = $this->optionRepository->find($id);
@@ -106,31 +66,19 @@ class OptionController extends AppBaseController
 
             return redirect(route('options.index'));
         }
-        $option->name_ar = $option->getTranslation('name', 'ar') ?? '';
-        $option->name_en = $option->getTranslation('name', 'en') ?? '';
 
         return view('options.edit')->with('option', $option);
     }
 
-    /**
-     * Update the specified Option in storage.
-     *
-     * @param int $id
-     * @param UpdateOptionRequest $request
-     *
-     * @return Response
-     */
     public function update($id, UpdateOptionRequest $request)
     {
         $option = $this->optionRepository->find($id);
-        $name = ['ar' => $request['name_ar'], 'en' => $request['name_en']];
-
         if (empty($option)) {
             Flash::error(__('messages.not_found', ['model' => __('models/options.singular')]));
 
             return redirect(route('options.index'));
         }
-        $input = ['name' => $name];
+        $input = $request->all();
 
         $option = $this->optionRepository->update($input, $id);
 
@@ -139,13 +87,6 @@ class OptionController extends AppBaseController
         return redirect(route('options.index'));
     }
 
-    /**
-     * Remove the specified Option from storage.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
     public function destroy($id)
     {
         $option = $this->optionRepository->find($id);
@@ -172,7 +113,7 @@ class OptionController extends AppBaseController
             $value->option_name = $lang == 'ar' ? $name['name']['ar'] :  $name['name']['en'];
         }
         if (count($options) == 0) {
-            $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
+            $message = 'No any data to export';
             return redirect()->back()->with(['message'=>$message] );
         }
         $pdf = Pdf::loadView('options.pdf', compact('options'));
@@ -187,7 +128,7 @@ class OptionController extends AppBaseController
             $value->option_name = $lang == 'ar' ? $name['name']['ar'] :  $name['name']['en'];
         }
         if (count($options) == 0) {
-            $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
+            $message = 'No any data to export';
             return redirect()->back()->with(['message'=>$message] );
         }
         return Excel::download(new OptionExport($options), 'options.XLSX');

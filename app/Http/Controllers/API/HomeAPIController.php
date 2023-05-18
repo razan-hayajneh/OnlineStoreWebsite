@@ -27,11 +27,14 @@ class HomeAPIController extends AppBaseController
      */
     public function index()
     {
+        $sales = $this->productRepository->getProductsWhereActiveCategory();
         $suggestedForYou = $this->productRepository->getProductsWhereActiveCategory();
         $categories = Category::where('active', 1)->get();
         return $this->sendResponse(
             [
+                'categories' => CategoryResource::collection($categories),
                 'square_categories' => CategoryResource::collection($categories),
+                'sales' => ProductResource::collection($sales),
                 'suggested_for_you' => ProductResource::collection($suggestedForYou)
             ],
             __('messages.retrieved', ['model' => __('awt.data')])

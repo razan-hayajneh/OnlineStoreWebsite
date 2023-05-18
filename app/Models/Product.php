@@ -6,11 +6,6 @@ use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
-use Spatie\Translatable\HasTranslations;
-
 /**
  * Class Product
  * @package App\Models
@@ -42,11 +37,6 @@ class Product extends Model
         'image_path'
     ];
 
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'name' => 'string',
         'price' => 'float',
@@ -56,11 +46,6 @@ class Product extends Model
         'discount_type' => 'boolean'
     ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
     public static $rules = [
         'name' => 'required',
         'description' => 'nullable',
@@ -95,4 +80,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductOptionKey::class, 'product_id');
     }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
 }

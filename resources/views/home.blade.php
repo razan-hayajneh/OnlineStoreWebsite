@@ -35,7 +35,7 @@
                         <div class="info-box-content">
                             <h5 style="color: #000">{{ awtTrans('العملاء') }}</h5>
                             <h4>
-                                {{ 5 }}
+                                {{ $numberOfClient }}
                                 {{-- <small>%</small> --}}
                             </h4>
                         </div>

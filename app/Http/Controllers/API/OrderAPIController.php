@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 use Response;
 
-class OrderController extends AppBaseController
+class OrderAPIController extends AppBaseController
 {
     private $orderRepository;
     private $orderTimelineRepository;
@@ -31,43 +31,6 @@ class OrderController extends AppBaseController
         $orderStatuses = array_combine(array_column(OrderStatus::cases(), 'value'), array_column(OrderStatus::cases(), 'name'));
 
         return $orderDataTable->render('orders.index', compact('orderStatuses'));
-    }
-    public function exportExcel()
-    {
-        $orders = Order::whereCheckout(1)->whereCanceled(0)->get();
-        $lang = app()->getLocale();
-        if (count($orders) == 0) {
-            $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
-            return redirect()->back()->with(['message' => $message]);
-        }
-        return Excel::download(new ExportOrder($orders), 'Orders.XLSX');
-    }
-    public function exportPdf()
-    {
-        $orders = Order::whereCheckout(1)->whereCanceled(0)->get();
-        $lang = app()->getLocale();
-        if (count($orders) == 0) {
-            $message = $lang == 'en' ? 'No any data to export' : 'لا يوجد اي بيانات لتصديرها';
-            return redirect()->back()->with(['message' => $message]);
-        }
-        $pdf = Pdf::loadView('orders.pdf', compact('orders'));
-        return $pdf->stream('orders.pdf');
-    }
-    public function exportOrderPdf()
-    {
-        $order = Order::find(request('id'));
-        $lang = app()->getLocale();
-        if (empty($order)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/orders.singular')]));
-            return redirect()->back();
-        }
-        $pdf = Pdf::loadView('orders.order_pdf', compact('order'));
-    }
-    public function create()
-    {
-        $coupouns = Coupon::pluck('code', 'id');
-        $users = User::where('user_type', 'client')->pluck('name', 'id');
-        return view('orders.create')->with(['users' => $users, 'coupouns' => $coupouns]);
     }
     public function store(CreateOrderRequest $request)
     {
@@ -87,17 +50,6 @@ class OrderController extends AppBaseController
         $orderStatuses = array_combine(array_column(OrderStatus::cases(), 'value'), array_column(OrderStatus::cases(), 'name'));
 
         return view('orders.show')->with(['order' => $order, 'order_statuses' => $orderStatuses]);
-    }
-    public function edit($id)
-    {
-        $order = $this->orderRepository->find($id);
-        if (empty($order)) {
-            Flash::error(__('messages.not_found', ['model' => __('models/orders.singular')]));
-            return redirect(route('orders.index'));
-        }
-        $coupouns = Coupon::pluck('code', 'id');
-        $users = User::where('user_type', 'client')->pluck('name', 'id');
-        return view('orders.edit')->with(['order' => $order, 'users' => $users, 'coupouns' => $coupouns]);
     }
     public function update($id, UpdateOrderRequest $request)
     {

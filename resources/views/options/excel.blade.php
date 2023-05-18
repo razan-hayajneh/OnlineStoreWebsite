@@ -45,19 +45,6 @@
 <body>
 
     <div class="table-responsive">
-        {{-- <td  class="text-center"style="text-align: center; " colspan="2" >
-            <img src="logo/logo-h.png"  width="200">
-        </td> --}}
-
-
-        {{-- <td class="text-center"style="text-align: center; font-size:15px ;" colspan="6" ><b
-                style="text-align: center"> {{__('awt.المدن')}}
-                </b>
-
-            </td> --}}
-
-
-
 
         <tr />
         <tr />
@@ -87,8 +74,6 @@
 
 
             </table>
-
-
         </div>
     </div>
 </body>

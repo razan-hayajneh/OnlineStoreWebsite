@@ -24,8 +24,14 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Product::$rules;
-
+        $rules = [
+            'name' => 'required',
+            'description' => 'nullable',
+            'price' => 'required',
+            'image_path' => 'sometimes|mimes:png,svg,jpg,jpeg',
+            'category_id' => 'required|exists:categories,id,deleted_at,NULL',
+            'quantity' => 'nullable'
+        ];
         return $rules;
     }
 }

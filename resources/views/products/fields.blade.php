@@ -16,16 +16,6 @@
     {!! Form::label('name', __('models/categories.fields.name').':') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
-{{-- <div class="form-group col-sm-6">
-    {!! Form::label('name', __('models/products.fields.name').':') !!}
-    {!! Form::text('name', null, ['class' => 'form-control']) !!}
-</div> --}}
-
-<!-- Description Field -->
-{{-- <div class="form-group col-sm-6">
-    {!! Form::label('description', __('models/products.fields.description').':') !!}
-    {!! Form::text('description', null, ['class' => 'form-control']) !!}
-</div> --}}
 
 <div class="form-group col-sm-6">
     {!! Form::label('description', __(awtTrans('Description')).':') !!}
@@ -45,7 +35,6 @@
 
 <!-- Category Id Field -->
 <div class="form-group col-sm-6">
-    {{-- {!! Form::label('category_id', __('models/products.fields.category_id').':') !!} --}}
     {!! Form::hidden('category_id',$category_id,null, ['class' => 'form-control custom-select']) !!}
 </div>
 

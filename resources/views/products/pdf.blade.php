@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>{{ __('awt.') }}</title>
+    <title>{{ __('models/products.plural') }}</title>
 </head>
 <style>
     table,
@@ -43,27 +43,39 @@
 </style>
 
 <body>
+    <div class="row">
+        <div class="column">
+            <h4 style="text-align: center; margin-left:-5px; font-size:150%">
+                <b style="text-align: center">{{ __('models/products.plural') }}</b>
+            </h4>
+        </div>
+
+        <h3 style="text-align: center"> {{ date("Y/m/d")}}
+        </h3>
+
+    </div>
 
     <div class="table-responsive">
-
-
         <div class="table-responsive-sm">
 
             <table class="table pt-5" id="student-table">
                 <thead>
                     <tr>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.name') }}
-                        </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.description') }}
-                        </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.price') }}
-                        </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.quantity') }}
-                        </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.discount') }}
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">
+                            {{ __('models/products.fields.name') }}
                         </th>
                         <th style="width: 150px; text-align:center;background-color:#D7DBDF">
-                            <b>{{ __('awt.status') }}</b></th>
+                            {{ __('models/products.fields.description') }}
+                        </th>
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">
+                            {{ __('models/products.fields.price') }}
+                        </th>
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">
+                            {{ __('models/products.fields.quantity') }}
+                        </th>
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">
+                            {{ __('models/products.fields.discount') }}
+                        </th>
 
                     </tr>
                 </thead>
@@ -71,13 +83,11 @@
                     @foreach ($products as $ob)
                         <tr>
 
-                            <td>{{ $ob->item_name }}</td>
-                            <td>{{ $ob->description_name }}</td>
+                            <td>{{ $ob->name }}</td>
+                            <td>{{ $ob->description }}</td>
                             <td>{{ $ob->price }}</td>
                             <td>{{ $ob->quantity }}</td>
-                            <td>{{ $ob->discount }}</td>
-                            <td>{{ $ob->status }}</td>
-
+                            <td>{{ $ob->discount ? $ob->discount . ($ob->discount_type ? '%' : "\$") : 0 }}</td>
                         </tr>
                     @endforeach
 

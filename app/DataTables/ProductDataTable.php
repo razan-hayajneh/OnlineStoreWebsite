@@ -26,11 +26,11 @@ class ProductDataTable extends DataTable
         ->addColumn('description', function ($query) {
             return $query->description;
         })
-        ->editColumn('discount_type',function ($query){
-            if($query['discount_type']==0)
-            return '' .__("models/products.fields.amount").'';
-            else
-            return '' .__("models/products.fields.ratio").'';
+        ->addColumn('stars', function ($query) {
+            return round($query->ratings()->avg('stars'),2);
+        })
+        ->editColumn('discount',function ($query){
+            return  $query['discount_type']==0 ?$query->discount.' $' :$query->discount.' %';
         })
         ->addColumn('option', function ($query) {
             return
@@ -40,7 +40,7 @@ class ProductDataTable extends DataTable
                    </button>
                 </a>';
         })
-        ->rawColumns(['image','option', 'action']);
+        ->rawColumns(['image','option','stars', 'action']);
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductDataTable extends DataTable
     public function query(Product $model)
     {
         return $model->query()
-        ->where('category_id', $this->id);
+        ->where('category_id', $this->id)->with('ratings');
         // return $model->newQuery();
     }
 
@@ -72,31 +72,6 @@ class ProductDataTable extends DataTable
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
-                    // [
-                    //    'extend' => 'create',
-                    //    'className' => 'btn btn-default btn-sm no-corner',
-                    //    'text' => '<i class="fa fa-plus"></i> ' .__('auth.app.create').''
-                    // ],
-                    // [
-                    //    'extend' => 'export',
-                    //    'className' => 'btn btn-default btn-sm no-corner',
-                    //    'text' => '<i class="fa fa-download"></i> ' .__('auth.app.export').''
-                    // ],
-                    // [
-                    //    'extend' => 'print',
-                    //    'className' => 'btn btn-default btn-sm no-corner',
-                    //    'text' => '<i class="fa fa-print"></i> ' .__('auth.app.print').''
-                    // ],
-                    // [
-                    //    'extend' => 'reset',
-                    //    'className' => 'btn btn-default btn-sm no-corner',
-                    //    'text' => '<i class="fa fa-undo"></i> ' .__('auth.app.reset').''
-                    // ],
-                    // [
-                    //    'extend' => 'reload',
-                    //    'className' => 'btn btn-default btn-sm no-corner',
-                    //    'text' => '<i class="fa fa-refresh"></i> ' .__('auth.app.reload').''
-                    // ],
                 ],
                  'language' => [
                    'url' => url('//cdn.datatables.net/plug-ins/1.10.12/i18n/English.json'),
@@ -116,10 +91,9 @@ class ProductDataTable extends DataTable
             'image' => new Column(['title' => __('models/categories.fields.image'), 'data' => 'image']),
             'description' => new Column(['title' => __('models/products.fields.description'), 'data' => 'description']),
             'price' => new Column(['title' => __('models/products.fields.price'), 'data' => 'price']),
-            // 'category_id' => new Column(['title' => __('models/products.fields.category_id'), 'data' => 'category_id']),
             'quantity' => new Column(['title' => __('models/products.fields.quantity'), 'data' => 'quantity']),
             'discount' => new Column(['title' => __('models/products.fields.discount'), 'data' => 'discount']),
-            'discount_type' => new Column(['title' => __('models/products.fields.discount_type'), 'data' => 'discount_type']),
+            'stars' => new Column(['title' => __('models/ratings.fields.stars'), 'data' => 'stars']),
             'option' => new Column(['title' => __('models/products.fields.option'), 'data' => 'option']),
 
         ];

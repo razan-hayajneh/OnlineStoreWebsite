@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateRatingsTable extends Migration
 {
 
     /**
@@ -14,13 +14,11 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id('id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('phone');
-            $table->date('address');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('client_id')->references('id')->on('clients');
+            $table->float('stars');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +31,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clients');
+        Schema::drop('ratings');
     }
 }

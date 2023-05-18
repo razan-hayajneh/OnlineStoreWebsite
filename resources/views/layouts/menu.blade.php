@@ -44,3 +44,10 @@
          <i class="nav-icon fa fa-globe"></i> <p>@lang('models/socialMedia.plural')</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('ratings.index') }}"
+       class="nav-link {{ Request::is('ratings*') ? 'active' : '' }}">
+       <i class="nav-icon fa fa-star"></i> <p>@lang('models/ratings.singular')</p>
+    </a>
+</li>

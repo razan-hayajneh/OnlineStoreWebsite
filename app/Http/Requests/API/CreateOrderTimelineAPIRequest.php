@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API;
 
-use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Slider;
+use App\Models\OrderTimeline;
+use InfyOm\Generator\Request\APIRequest;
 
-class UpdateSliderRequest extends FormRequest
+class CreateOrderTimelineAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class UpdateSliderRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Slider::$rules;
-        
-        return $rules;
+        return OrderTimeline::$rules;
     }
 }

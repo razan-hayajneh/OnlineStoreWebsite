@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>{{ awtTrans('') }}</title>
+    <title>{{ __('models/products.plural') }}</title>
 </head>
 <style>
     table,
@@ -45,19 +45,6 @@
 <body>
 
     <div class="table-responsive">
-        {{-- <td  class="text-center"style="text-align: center; " colspan="2" >
-            <img src="logo/logo-h.png"  width="200">
-        </td> --}}
-
-
-        {{-- <td class="text-center"style="text-align: center; font-size:15px ;" colspan="6" ><b
-                style="text-align: center"> {{awtTrans('المدن')}}
-                </b>
-
-            </td> --}}
-
-
-
 
         <tr />
         <tr />
@@ -67,15 +54,15 @@
             <table class="table pt-5" id="student-table">
                 <thead>
                     <tr>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.name') }}
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('models/products.fields.name') }}
                         </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.description') }}
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('models/products.fields.description') }}
                         </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.price') }}
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('models/products.fields.price') }}
                         </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.quantity') }}
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('models/products.fields.quantity') }}
                         </th>
-                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('awt.discount') }}
+                        <th style="width: 150px; text-align:center;background-color:#D7DBDF">{{ __('models/products.fields.discount') }}
                         </th>
                     </tr>
                 </thead>
@@ -87,7 +74,7 @@
                             <td>{{ $ob->description }}</td>
                             <td>{{ $ob->price }}</td>
                             <td>{{ $ob->quantity }}</td>
-                            <td>{{ $ob->discount }}</td>
+                            <td>{{ $ob->discount?$ob->discount.($ob->discount_type?"%":"\$"):0 }}</td>
 
                         </tr>
                     @endforeach

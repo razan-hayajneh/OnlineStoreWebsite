@@ -121,15 +121,11 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        {{-- <img src="{{dashboard_url('cover.jpg')}}" width="150" height="150"
-                            class="user-image img-circle elevation-2" alt="User Image"> --}}
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-primary">
-                            {{-- <img src="{{dashboard_url('cover.jpg')}}" width="150" height="150"
-                                class="img-circle elevation-2" alt="User Image"> --}}
                             <p>
                                 {{ Auth::user()->name }}
                                 <small>{{ Auth::user()->created_at ? 'Member since ' . Auth::user()->created_at->format('M. Y') : '' }}</small>
@@ -234,7 +230,7 @@
                             `<option value="" hidden selected>{{ app()->getLocale() == 'ar' ? 'اختر ' : 'select ' }}</option>`;
                         $.each(res.data, function(index, value) {
                             html +=
-                                `<option value="${value.id}" ${option_id == value.id ? 'selected':'' }>${value.key.ar}</option>`;
+                                `<option value="${value.id}" ${option_id == value.id ? 'selected':'' }>${value.key}</option>`;
                         });
                         $('#optionKeyId').append(html);
                     }

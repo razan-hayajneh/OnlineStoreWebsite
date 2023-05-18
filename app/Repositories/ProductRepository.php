@@ -44,6 +44,12 @@ class ProductRepository extends BaseRepository
         })->orderBy(DB::raw('RAND()'))->take(10)->get();
     }
 
+    public function getSaleProductsWhereActiveCategory($uuid)
+    {
+        return Product::whereHas('category', function ($query) {
+            $query->where('active', 1);
+        })->take(10)->get();
+    }
     /**
      * Configure the Model
      **/

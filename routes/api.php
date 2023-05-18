@@ -53,3 +53,7 @@ Route::resource('categories', CategoryAPIController::class);
 Route::resource('coupons', CouponAPIController::class);
 Route::resource('product_option_keys', ProductOptionKeyAPIController::class);
 Route::resource('social_media', SocialMediaAPIController::class);
+Route::resource('ratings', RatingAPIController::class);
+
+
+Route::resource('order_timelines', App\Http\Controllers\API\OrderTimelineAPIController::class);

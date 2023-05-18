@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,16 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user= User::all();
-                    // ->whereYear('created_at', date('Y'))
-                    // ->groupBy(DB::raw("Month(created_at)"))
-                    // ->pluck('id', 'name');
- 
-        // $labels = $users->keys();
-        // dd($user);
-        $data = $user;
-              
-        // return view('home')->with(["data" => $data , 'user' => $user ]) ;
-        return view('home');
+        $numberOfClient= Client::count();
+        return view('home')->with(['numberOfClient'=>$numberOfClient]);
     }
 }

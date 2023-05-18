@@ -2,12 +2,13 @@
 
 namespace App\DataTables;
 
-use App\Models\Coupon;
+use App\Models\Rating;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Column;
 
-class CouponDataTable extends DataTable
+class RatingDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,23 +19,20 @@ class CouponDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-
-        return $dataTable->addColumn('value', function ($query) {
-            return $query->is_ratio ? $query->value . '%' : $query->value . 'JD';
-        })->addColumn('expiration_date', function ($query) {
-            return date_format($query->expiration_date, 'Y/m/d');
-        })->addColumn('action', 'coupons.datatables_actions');
+        return $dataTable->editColumn('product_id',function ($query){
+            return $query->product['name'];
+        })->rawColumns(['product_id']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Coupon $model
+     * @param \App\Models\ratings $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Coupon $model)
+    public function query(Rating $model)
     {
-        return $model->newQuery();
+        return $model->groupBy('product_id')->with('product')->select('product_id',DB::raw('round(AVG(stars),2) as stars'))->newQuery();
     }
 
     /**
@@ -47,8 +45,7 @@ class CouponDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'printable' => false, 'title' => __('crud.action')])
-            ->parameters([
+                ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
@@ -67,19 +64,9 @@ class CouponDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'code' => new Column(['title' => __('models/coupons.fields.code'), 'data' => 'code']),
-            'value' => new Column(['title' => __('models/coupons.fields.value'), 'data' => 'value']),
-            'expiration_date' => new Column(['title' => __('models/coupons.fields.expiration_date'), 'data' => 'expiration_date'])
+            'product' => new Column(['title' => __('models/ratings.fields.product_id'), 'data' => 'product_id']),
+            'stars' => new Column(['title' => __('models/ratings.fields.stars'), 'data' => 'stars'])
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename()
-    {
-        return 'coupons_datatable_' . time();
-    }
 }

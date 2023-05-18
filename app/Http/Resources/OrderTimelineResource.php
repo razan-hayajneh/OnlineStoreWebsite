@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class OrderTimelineResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'active' => $this->active,
-            'image_path' => $this->image_path?dashboard_url($this->image_path):null,
+            'status' => $this->status,
+            'date' => date_format($this->date,'Y/m/d HH:mm') ,
         ];
     }
 }

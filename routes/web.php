@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CityController, AddressController, AjaxController, CategoryController, ClientController, CouponController, ProductController, OptionController, OptionKeyController, OrderController, UserController};
+use App\Http\Controllers\{CityController, AddressController, AjaxController, CategoryController, ClientController, CouponController, ProductController, OptionController, OptionKeyController, OrderController, RatingController, SocialMediaController};
 use Illuminate\Support\Facades\{Auth, Route};
 /*
 |--------------------------------------------------------------------------
@@ -66,5 +66,7 @@ Route::middleware([
     Route::resource('clients', ClientController::class)->middleware('auth');
     Route::get('client/ExportExcel', [ClientController::class, 'exportExcel'])->name('client.exportExcel');
     Route::get('client/ExportPdf', [ClientController::class, 'exportPdf'])->name('client.exportPdf');
-   Route::resource('socialMedia', App\Http\Controllers\SocialMediaController::class);
+    Route::resource('socialMedia', SocialMediaController::class);
+    Route::resource('ratings', RatingController::class);
 });
+
