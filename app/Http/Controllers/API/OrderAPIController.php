@@ -11,6 +11,7 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use App\Models\{Coupon, Order, User};
 use App\Repositories\OrderTimelineRepository;
+use DragonCode\Contracts\Cashier\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
@@ -26,11 +27,13 @@ class OrderAPIController extends AppBaseController
         $this->orderRepository = $orderRepo;
         $this->orderTimelineRepository = $orderTimelineRepo;
     }
-    public function index(OrderDataTable $orderDataTable)
+    public function index(Request $request)
     {
-        $orderStatuses = array_combine(array_column(OrderStatus::cases(), 'value'), array_column(OrderStatus::cases(), 'name'));
-
-        return $orderDataTable->render('orders.index', compact('orderStatuses'));
+        $orders = $this->orderRepository->getOrder($request['uuid']);
+        return $this->sendResponse(
+            OrderResource::collection($orders),
+            __('messages.retrieved', ['model' => __('models/order.plural')])
+        );
     }
     public function store(CreateOrderRequest $request)
     {

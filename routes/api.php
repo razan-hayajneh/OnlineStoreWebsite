@@ -20,20 +20,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['middleware' => ['auth-check', 'api-lang'], 'namespace' => 'Api\Client'], function () {
+Route::group(['middleware' => ['auth-check'], 'namespace' => 'Api\Client'], function () {
 
     //    /***************************** AuthController Start *****************************/
     //    client
     Route::any('sign-in', 'AuthController@Login');
-    Route::any('disable-account', 'AuthController@disabledAccount');
     Route::any('user/sign-up', 'AuthController@UserRegister');
-    Route::any('active-code', 'AuthController@Activation');
     Route::any('send-active-code', 'AuthController@sendActiveCode');
     Route::any('resend_code', 'AuthController@sendActiveCode');
     Route::any('check-active-code', 'AuthController@checkActiveCode');
     Route::any('logout', 'AuthController@Logout');
     Route::any('forget-password', 'AuthController@ForgetPasswordCode');
-    Route::any('forget_password_code', 'AuthController@ForgetPasswordCode');
 
     Route::group(['middleware' => ['jwt.verify', 'check-user-active']], function () {
         //        # User profile

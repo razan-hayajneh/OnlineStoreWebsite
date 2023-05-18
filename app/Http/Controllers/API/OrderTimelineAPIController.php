@@ -35,7 +35,8 @@ class OrderTimelineAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $orderTimelines = $this->orderTimelineRepository->all();
+        
+        $orderTimelines = $this->orderTimelineRepository->where('order_id',request('id'))->get();
 
         return $this->sendResponse(
             OrderTimelineResource::collection($orderTimelines),

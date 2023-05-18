@@ -12,11 +12,11 @@ class CheckUserActive
     {
         if(auth('api')->check()){
             $user = auth()->user();
-            if ($user->banned == 1){
+            if ($user->user_status != 'active'){
                 return response()->json([
-                    'key' => 'is_banned',
+                    'key' => 'banned',
                     'value' => 2,
-                    'msg' =>'لقد تم حظرك من قبل الاداره'
+                    'msg' =>'You are deactivated by admin'
                 ]);
             }
         }

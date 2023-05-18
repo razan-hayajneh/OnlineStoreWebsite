@@ -9,7 +9,7 @@ use App\Repositories\BaseRepository;
  * Class OrderRepository
  * @package App\Repositories
  * @version February 9, 2023, 9:13 am UTC
-*/
+ */
 
 class OrderRepository extends BaseRepository
 {
@@ -33,7 +33,13 @@ class OrderRepository extends BaseRepository
     {
         return $this->fieldSearchable;
     }
-
+    public function getOrder($uuid)
+    {
+        $orders = Order::whereHas('user',function ($query) use($uuid){
+            $query->where('uuid',$uuid);
+        });
+        return $orders;
+    }
     /**
      * Configure the Model
      **/
