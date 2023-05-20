@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\{ProductAPIController, HomeAPIController};
-// use App\Http\Controllers\;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\{ProductAPIController, HomeAPIController, OrderTimelineAPIController};
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -15,26 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 
 Route::group(['middleware' => ['auth-check'], 'namespace' => 'Api\Client'], function () {
 
     //    /***************************** AuthController Start *****************************/
     //    client
-    Route::any('sign-in', 'AuthController@Login');
-    Route::any('user/sign-up', 'AuthController@UserRegister');
-    Route::any('send-active-code', 'AuthController@sendActiveCode');
-    Route::any('check-active-code', 'AuthController@checkActiveCode');
-    Route::any('logout', 'AuthController@Logout');
-
-    Route::group(['middleware' => ['jwt.verify', 'check-user-active']], function () {
+    Route::post('register', [JWTAuthController::class, 'register']);
+    Route::post('login', [JWTAuthController::class, 'login']);
+    Route::group(['middleware' => ['auth.jwt', 'check-user-active']], function () {
         //        # User profile
-        Route::any('profile', 'AuthController@ShowProfile');
-        Route::any('profile/update', 'AuthController@UpdateProfile');
-        Route::any('change-password', 'AuthController@UpdatePassword');
+        Route::post('logout', [JWTAuthController::class, 'logout']);
+        Route::any('profile', 'AuthAPIController@ShowProfile');
+        Route::any('profile/update', 'AuthAPIController@UpdateProfile');
+        Route::any('change-password', 'AuthAPIController@UpdatePassword');
         Route::any('products', [ProductAPIController::class, 'index']);
         Route::any('/home-data', [HomeAPIController::class, 'index']);
         Route::any('/suggested-products', [ProductAPIController::class, 'suggest']);
@@ -46,8 +37,8 @@ Route::group(['middleware' => ['auth-check'], 'namespace' => 'Api\Client'], func
         Route::resource('product_option_keys', ProductOptionKeyAPIController::class);
         Route::resource('social_media', SocialMediaAPIController::class);
         Route::resource('ratings', RatingAPIController::class);
+        Route::resource('order_timelines', OrderTimelineAPIController::class);
     });
 });
 
 
-Route::resource('order_timelines', App\Http\Controllers\API\OrderTimelineAPIController::class);

@@ -29,7 +29,7 @@
         "pusher/pusher-php-server": "*",
         "spatie/laravel-translatable": "*",
         "stichoza/google-translate-php": "*",
-        "tymon/jwt-auth": "*",
+        "tymon/jwt-auth": "^1.0@dev",
         "yajra/laravel-datatables": "*",
         "yajra/laravel-datatables-buttons": "*",
         "yajra/laravel-datatables-html": "*",
